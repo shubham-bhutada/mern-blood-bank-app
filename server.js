@@ -1,15 +1,19 @@
 const express = require('express');
+const testRouter = require('./routes/testRoute');
+require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: "Welcome to blood bank app"
-    })
-})
+//middlewares
+app.use(express.json());
+app.use(cors());
 
-const PORT = 8000;
+//routes
+app.use('/api/v1/test', testRouter)
+
+const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-    console.log("Server is up and running on the PORT:", PORT);
+    console.log("Blood Bank server is running on PORT:", PORT);
 })
